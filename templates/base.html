@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!doctype>
+<html>
+	<head>
+		<title>Welcome to Bloging Website</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	</head>
+	<body id="background">
+		<nav>
+			<div id="container">
+			<p id ='logo'><a href="{% url 'articles:list' %}">BLOG</a></p>
+			<ul>
+				{% if request.path != '/articles/create' %}
+				<li>
+					<form action="{% url 'articles:create' %}" method="POST">
+						{% csrf_token %}
+						<input value="create" type="submit" class="nav-buttons"> 
+					</form>
+				</li>
+				{% endif %}
+					{% if user.is_authenticated %}
+				<li>  
+					<form action="{% url 'accounts:logout' %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="logout" class="nav-buttons">
+					</form>
+				</li>
+				{% else %}
+				<li>
+					<form action="{% url 'accounts:login' %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="login" class="nav-buttons">
+					</form>
+				</li>
+				<li>
+					<form action="{% url 'accounts:signup' %}" method="POST">
+						{% csrf_token %}
+						<input type="submit" value="signup" class="nav-buttons">
+					</form>
+				</li>
+				{% endif %}
+			</ul>
+			</div>
+		</nav>
+		{% block content %}
+		{% endblock %}
+	</body>
+</html>

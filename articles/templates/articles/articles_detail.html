@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div id="container">
+	<div id="article-space">
+	<h1><a href="{%url 'articles:list' %}"> Articles </a></h1>
+	<img src="{{articles_found.thumb.url}}">
+	<h2>{{articles_found.title}}</h2>
+	<p>{{articles_found.body}}</p>
+	<p>{{articles_found.date}}</p>
+	</div>
+	</div>
+{% endblock %}

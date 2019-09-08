@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content%}
+	<div id="container">
+		<ul id='sub-nav'>
+			{% if request.path == '/' or request.path == '/articles/' %}
+			<li id="header"><a class="blog_type selected" href="{% url 'home' %}">Latest Blogs</a></li>
+			{% if user.is_authenticated %}
+			<li id="header"><a class="blog_type" href="{% url 'articles:myblogs' %}">My Blogs</a></li>
+		</ul>
+			{% endif %}
+			{% else %}
+			<li id="header"><a class="blog_type" href="{% url 'home' %}">Latest Blogs</a></li>
+			{% if user.is_authenticated %}
+			<li id="header"><a class="blog_type selected" href="{% url 'articles:myblogs' %}">My Blogs</a></li>
+		</ul>
+			{% endif %}
+			{% endif %}
+		<div id="article-space">
+		{% for a in articles %}
+		<div class="article">
+			<h2><a href="{% url 'articles:details' slug=a.slug %}">{{a.titleReduce}}</a></h2>
+			<p>{{a.reduce}}...</p>
+			<p>posted by {{a.author}} on {{a.date}}</p>
+		</div>
+		{%endfor%}
+		</div>
+	</div>
+{% endblock %}
