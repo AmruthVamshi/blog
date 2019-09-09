@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h1>login</h1>
-	{{a}}
-	<form action="{% url 'accounts:login' %}" method="POST">
+<div id="container">
+	<div id="login-div">
+	<h1 id="acc-header">login</h1>
+		<form action="{% url 'accounts:login' %}" method="POST">
 		{% csrf_token %}
-		{{form.as_p}}
+		{% for field in form %}
+    	<div class="fieldWrapper">
+        	<p>{{ field.label_tag }} {{ field }}</p>
+        	<p>{% if field.help_text %}</p>
+        	<p class="help">{{ field.help_text|safe}}</p>
+        	{% endif %}
+    	</div>
+		{% endfor %}
 		{% if request.GET.next %}
 			<input type="hidden" name="next" value="{{request.GET.next}}">
 		{% endif %}
 		<input type="submit" value='login'>
 	</form>
+</div>
+	</div>
 {% endblock %}

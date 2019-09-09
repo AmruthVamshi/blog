@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-	<h1>sign up</h1>
+	<div id="container">
+		<div id="login-div">
+	<h1 id="acc-header">sign up</h1>
 	<form action="{% url 'accounts:signup' %}" method="POST">
 		{% csrf_token %}
-		{{form.as_p}}
-		<input type="submit" value='signup'>
+		{% for field in form %}
+    	<div class="fieldWrapper">
+        	{{ field.label_tag }} {{ field }}
+        	{% if field.help_text %}
+        	<p class="help">{{ field.help_text|safe}}</p>
+        	{% endif %}
+    	</div>
+	{% endfor %}
+		<input class="nav-buttons" type="submit" value='signup'>
 	</form>
 	<p> If you alreafy have an account <a href="{% url 'accounts:login' %}">Login here</a></p>
+	</div>
+</div>
 {% endblock %}
