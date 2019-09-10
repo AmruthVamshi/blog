@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+	</nav>
 	<div id="container">
-	<div id="login-div">
-	<h1 id="acc-header">Create an awesome blog</h1>
+		<div id="login-div">
+	<h1 id="acc-header">Edit your Blog</h1>
 	<form method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Save">
 	</form>
 	</div>
-	</div>
+</div>
 {% endblock %}

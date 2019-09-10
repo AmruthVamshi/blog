@@ -5,7 +5,7 @@ from django.contrib.auth import logout as auth_logout
 # Create your views here.
 def signup(request):
 	if request.method=="POST":
-		form=UserCreationForm(request.POST)
+		form=UserCreationForm(request.POST or None)
 		if form.is_valid():
 			user=form.save()
 			auth_login(request, user)
@@ -16,10 +16,9 @@ def signup(request):
 def login(request):
 	a=''
 	if request.method=="POST":
-		form=AuthenticationForm(data=request.POST)
+		form=AuthenticationForm(data=request.POST or None)
 		if form.is_valid():
 			user=form.get_user()
-			print(user)
 			auth_login(request, user)
 			if 'next' in request.POST:
 				a=request.POST.get('next')
@@ -27,7 +26,7 @@ def login(request):
 			else:
 				return redirect('articles:list')
 	else:
-		form = AuthenticationForm()
+		form = AuthenticationForm(request.POST or None)
 	return render(request,'accounts/login.html',{'form':form,'a':a})
 def logout(request):
 	if request.method=="POST":

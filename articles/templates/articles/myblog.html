@@ -22,7 +22,7 @@
 		<h2><a href="{% url 'articles:details' slug=articles.slug %}">{{articles.titleReduce}}</a></h2>
 		<p>{{articles.reduce}}</p>
 		<p>Created by {{articles.author}} on {{articles.date}}</p>
-		<a href="{% url 'articles:delete' delete_post=articles.slug %}">delete</a>
+	<p><a href="{% url 'articles:delete' delete_post=articles.slug %}">delete </a>  <a href="{% url 'articles:edit' edit_post=articles.slug %}">Edit</a></p>
 		</div>
 	{% endfor %}
 	</div>
